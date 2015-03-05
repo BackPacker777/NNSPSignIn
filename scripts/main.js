@@ -11,7 +11,7 @@
 var patrollers = [];
 
 /** @type {number} */
-var t1Counter, t2Counter, t3Counter, t4Counter;
+var t1Counter, t2Counter, t3Counter, t4Counter, t5Counter;
 
 function getDate() {
 	/** @type {Date} */
@@ -20,7 +20,7 @@ function getDate() {
 		day = date.getDate(),
 		year = date.getFullYear(),
 		weekDay = date.getDay(),
-		fullDate = (month + "/" + day + "/" + year);
+		fullDate = '<h3>' + month + "/" + day + "/" + year + '</h3>';
 	document.getElementById("weekDay").innerHTML = getWeekDay(weekDay);
 	return fullDate;
 }
@@ -28,7 +28,7 @@ function getDate() {
 function getWeekDay(weekDay) {
 	/** @type {Array.<string>} */
 	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-	return days[weekDay];
+	return '<h3>' + days[weekDay] + '</h3>';
 }
 
 function getPatroller(patroller) {
@@ -41,7 +41,7 @@ function getPatroller(patroller) {
 		FIRST = 1,
 		LEVEL = 3;
 	/** @type {number} */
-	var counter = 0;
+	var exists = 0;
 	/** @type {string} */
 	var level;
 	/** @type {Array.<string>} */
@@ -62,17 +62,20 @@ function getPatroller(patroller) {
 				minutes = "0" + minutes;
 			}
 			document.getElementById("time." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + date.getHours() + ":" + minutes + "</h4>";
-			//patrollers.splice(patrollers[j], 1); //remove array element
+			patrollers.splice(patrollers[j]--, 1); //remove array element
+			elementId[2]++;
+			/** @type {boolean} */
+			var addTeam = setCounter(elementId[1]);
+			if (addTeam === true) {
+				addPatroller(elementId[1], elementId[2]);
+			}
+			exists = 1;
 			break;
-		} else {
-			//Do something here if number already in use.
 		}
 	}
-	elementId[2]++;
-	/** @type {boolean} */
-	var addTeam = setCounter(elementId[1]);
-	if (addTeam === true) {
-		addPatroller(elementId[1], elementId[2]);
+	if (exists == 0) {
+		alert("PLEASE TRY AGAIN!");//Do something here if number already in use.
+		element.value = '';
 	}
 }
 
@@ -109,12 +112,22 @@ function setCounter(teamNum) {
 		} else {
 			return false;
 		}
-	} else {
+	} else if (teamNum == 4) {
 		if (typeof t4Counter == 'undefined') {
 			t4Counter = 1;
 		}
 		if (t4Counter < MAX_TEAM) {
 			t4Counter++;
+			return true;
+		} else {
+			return false;
+		}
+	}  else {
+		if (typeof t5Counter == 'undefined') {
+			t5Counter = 1;
+		}
+		if (t5Counter < MAX_TEAM) {
+			t5Counter++;
 			return true;
 		} else {
 			return false;
@@ -160,10 +173,6 @@ function setPatrollers() {
 		patrollers[i] = lines[i].split(",");
 	}
 }
-
-
-
-
 
 window.onload = function() {
 	document.getElementById("date").innerHTML = getDate();
