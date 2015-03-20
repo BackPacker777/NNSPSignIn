@@ -35,6 +35,16 @@ function getWeekDay(weekDay) {
 	return '<h3>' + days[weekDay] + '</h3>';
 }
 
+function setDayNight() {
+	/** @type {number} */
+	var hour = date.getHours();
+	if (hour > 14 && hour < 23) {
+		document.getElementById("dayNight").innerHTML = "<h3>Night</h3>";
+	} else {
+		document.getElementById("dayNight").innerHTML = "<h3>Day</h3>";
+	}
+}
+
 function prepPatroller(teamNum) {
 	teamNum.addEventListener('change', populatePatroller);
 }
@@ -195,9 +205,8 @@ window.onload = function() {
 	var MAX_TEAM = 5;
 	document.getElementById("date").innerHTML = getDate();
 	setPatrollersArray();
-	prepPatroller(document.getElementById("patrollerID.1.1"));
-	prepPatroller(document.getElementById("patrollerID.2.1"));
-	prepPatroller(document.getElementById("patrollerID.3.1"));
-	prepPatroller(document.getElementById("patrollerID.4.1"));
-	prepPatroller(document.getElementById("patrollerID.5.1"));
+	setDayNight();
+	for (var i = 1; i <= MAX_TEAM; i++) {
+		prepPatroller(document.getElementById("patrollerID." + i + ".1"));
+	}
 };

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <!--
 	AUTHOR: HB
-	VERSION: 1.0
+	VERSION: 1.5
 	CREATED: 2.25.2015
 	PURPOSE: NNSP Daily sign-in form
-	TODO: Track shifts number; 1/2 day shifts manual & calculation; Write data back to .csv
+	TODO: 1/2 day shifts manual & calculation; Write data back to .csv; Handle team 6;
+	TODO: Print page & meal tickets
 -->
 <html lang="en">
 	<head>
@@ -16,15 +17,12 @@
 	<body>
 	<div class="panel radius">
 		<div class="row">
-			<div class="small-4 columns">
+			<div class="small-4 columns left">
 				<h2>NNSP Sign-in</h2>
 			</div>
-			<div class="small-3 columns" id="date"></div>
-			<div class="small-3 columns">
-				<input type="radio" name="dayNight" value="Day" id="day" class=""><label for="day">Day</label>
-				<input type="radio" name="dayNight" value="Night" id="night"><label for="night">Night</label>
-			</div>
-			<div class="small-2 columns" id="weekDay"></div>
+			<div class="small-2 columns left" id="date"></div>
+			<div class="small-2 columns left" id="weekDay"></div>
+			<div class="small-2 columns left" id="dayNight"></div>
 		</div>
 		<form>
 			<fieldset id="team1">
@@ -53,7 +51,7 @@
 					<div class="small-2 columns" id="patroller.2.1">
 						<input type="number" maxlength="5" required="1" id="patrollerID.2.1" placeholder="ID Num" />
 					</div>
-					<div class="small-2 column" id="level.2.1"></div>
+					<div class="small-1 column" id="level.2.1"></div>
 					<div class="small-1 column" id="time.2.1"></div>
 					<span class="label left">Days:</span><div class="small-1 column" id="days.2.1"></div>
 					<div class="small-2 columns">
@@ -70,7 +68,7 @@
 					<div class="small-2 columns" id="patroller.3.1">
 						<input type="number" maxlength="5" required="1" id="patrollerID.3.1" placeholder="ID Num" />
 					</div>
-					<div class="small-2 column" id="level.3.1"></div>
+					<div class="small-1 column" id="level.3.1"></div>
 					<div class="small-1 column" id="time.3.1"></div>
 					<span class="label left">Days:</span><div class="small-1 column" id="days.3.1"></div>
 					<div class="small-2 columns">
@@ -87,7 +85,7 @@
 					<div class="small-2 columns" id="patroller.4.1">
 						<input type="number" maxlength="5" required="1" id="patrollerID.4.1" placeholder="ID Num" />
 					</div>
-					<div class="small-2 column" id="level.4.1"></div>
+					<div class="small-1 column" id="level.4.1"></div>
 					<div class="small-1 column" id="time.4.1"></div>
 					<span class="label left">Days:</span><div class="small-1 column" id="days.4.1"></div>
 					<div class="small-2 columns">
@@ -104,7 +102,7 @@
 					<div class="small-2 columns" id="patroller.5.1">
 						<input type="number" maxlength="5" required="1" id="patrollerID.5.1" placeholder="ID Num" />
 					</div>
-					<div class="small-2 column" id="level.5.1"></div>
+					<div class="small-1 column" id="level.5.1"></div>
 					<div class="small-1 column" id="time.5.1"></div>
 					<span class="label left">Days:</span><div class="small-1 column" id="days.5.1"></div>
 					<div class="small-2 columns">
@@ -121,7 +119,7 @@
 					<div class="small-2 columns" id="patroller.6.1">
 						<input type="number" maxlength="5" required="1" id="patrollerID.6.1" placeholder="ID Num" />
 					</div>
-					<div class="small-2 column" id="level.6.1"></div>
+					<div class="small-1 column" id="level.6.1"></div>
 					<div class="small-1 column" id="time.6.1"></div>
 					<span class="label left">Days:</span><div class="small-1 column" id="days.6.1"></div>
 					<div class="small-2 columns">
