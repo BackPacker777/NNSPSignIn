@@ -2,9 +2,9 @@
 <!--
 	AUTHOR: HB
 	VERSION: 1.0
-	CREATED: 1.24.2013
-	ASSIGNMENT: HTML template
-	TODO: Add bonus & individual results (array iteration & output).
+	CREATED: 2.25.2015
+	PURPOSE: NNSP Daily sign-in form
+	TODO: Track shifts number; 1/2 day shifts manual & calculation; Write data back to .csv
 -->
 <html lang="en">
 	<head>
@@ -14,7 +14,7 @@
 		<link href="css/foundation.css" rel="stylesheet">
 	</head>
 	<body>
-	<div class="panel">
+	<div class="panel radius">
 		<div class="row">
 			<div class="small-4 columns">
 				<h2>NNSP Sign-in</h2>
@@ -30,17 +30,15 @@
 			<fieldset id="team1">
 				<legend>Team 1:</legend>
 				<div class="row fullWidth">
-					<div class="small-2 columns">
-						<input type="number" maxlength="2" required="1" id="radioNum.1.1" placeholder="Radio Number" />
+					<div class="small-1 columns">
+						<input type="number" maxlength="2" required="1" id="radioNum.1.1" placeholder="Radio" />
 					</div>
 					<div class="small-2 columns" id="patroller.1.1">
-						<input type="number" maxlength="5" id="patrollerID.1.1" placeholder="ID Num" onchange="getPatroller(this.id)" />
+						<input type="number" maxlength="5" id="patrollerID.1.1" placeholder="ID Num" />
 					</div>
-					<div class="small-2 column" id="level.1.1"></div>
+					<div class="small-1 column" id="level.1.1"></div>
 					<div class="small-1 column" id="time.1.1"></div>
-					<div class="small-2 columns">
-						<input id="mealTicket.1.1" type="checkbox"><label for="mealTicket.1.1">Meal Ticket?</label>
-					</div>
+					<span class="label left">Days:</span><div class="small-2 column" id="days.1.1"></div>
 					<div class="small-2 columns">
 						<input type="text" id="guest.1.1" placeholder="Guest" />
 					</div>
@@ -49,17 +47,15 @@
 			<fieldset id="team2">
 				<legend>Team 2:</legend>
 				<div class="row fullWidth">
-					<div class="small-2 columns">
-						<input type="number" maxlength="2" required="1" id="radioNum.2.1" placeholder="Radio Number" />
+					<div class="small-1 columns">
+						<input type="number" maxlength="2" required="1" id="radioNum.2.1" placeholder="Radio" />
 					</div>
 					<div class="small-2 columns" id="patroller.2.1">
-						<input type="number" maxlength="5" required="1" id="patrollerID.2.1" placeholder="ID Num" onchange="getPatroller(this.id)"/>
+						<input type="number" maxlength="5" required="1" id="patrollerID.2.1" placeholder="ID Num" />
 					</div>
 					<div class="small-2 column" id="level.2.1"></div>
 					<div class="small-1 column" id="time.2.1"></div>
-					<div class="small-2 columns">
-						<input id="mealTicket.2.1" type="checkbox"><label for="mealTicket.2.1">Meal Ticket?</label>
-					</div>
+					<span class="label left">Days:</span><div class="small-1 column" id="days.2.1"></div>
 					<div class="small-2 columns">
 						<input type="text" id="guest.2.1" placeholder="Guest" />
 					</div>
@@ -68,17 +64,15 @@
 			<fieldset id="team3">
 				<legend>Team 3:</legend>
 				<div class="row fullWidth">
-					<div class="small-2 columns">
-						<input type="number" maxlength="2" required="1" id="radioNum.3.1" placeholder="Radio Number" />
+					<div class="small-1 columns">
+						<input type="number" maxlength="2" required="1" id="radioNum.3.1" placeholder="Radio" />
 					</div>
 					<div class="small-2 columns" id="patroller.3.1">
-						<input type="number" maxlength="5" required="1" id="patrollerID.3.1" placeholder="ID Num" onchange="getPatroller(this.id)"/>
+						<input type="number" maxlength="5" required="1" id="patrollerID.3.1" placeholder="ID Num" />
 					</div>
 					<div class="small-2 column" id="level.3.1"></div>
 					<div class="small-1 column" id="time.3.1"></div>
-					<div class="small-2 columns">
-						<input id="mealTicket.3.1" type="checkbox"><label for="mealTicket.3.1">Meal Ticket?</label>
-					</div>
+					<span class="label left">Days:</span><div class="small-1 column" id="days.3.1"></div>
 					<div class="small-2 columns">
 						<input type="text" id="guest.3.1" placeholder="Guest" />
 					</div>
@@ -87,17 +81,15 @@
 			<fieldset id="team4">
 				<legend>Team 4:</legend>
 				<div class="row fullWidth">
-					<div class="small-2 columns">
-						<input type="number" maxlength="2" required="1" id="radioNum.4.1" placeholder="Radio Number" />
+					<div class="small-1 columns">
+						<input type="number" maxlength="2" required="1" id="radioNum.4.1" placeholder="Radio" />
 					</div>
 					<div class="small-2 columns" id="patroller.4.1">
-						<input type="number" maxlength="5" required="1" id="patrollerID.4.1" placeholder="ID Num" onchange="getPatroller(this.id)"/>
+						<input type="number" maxlength="5" required="1" id="patrollerID.4.1" placeholder="ID Num" />
 					</div>
 					<div class="small-2 column" id="level.4.1"></div>
 					<div class="small-1 column" id="time.4.1"></div>
-					<div class="small-2 columns">
-						<input id="mealTicket.4.1" type="checkbox"><label for="mealTicket.4.1">Meal Ticket?</label>
-					</div>
+					<span class="label left">Days:</span><div class="small-1 column" id="days.4.1"></div>
 					<div class="small-2 columns">
 						<input type="text" id="guest.4.1" placeholder="Guest" />
 					</div>
@@ -106,17 +98,15 @@
 			<fieldset id="team5">
 				<legend>Candidates:</legend>
 				<div class="row fullWidth">
-					<div class="small-2 columns">
-						<input type="number" maxlength="2" required="1" id="radioNum.5.1" placeholder="Radio Number" />
+					<div class="small-1 columns">
+						<input type="number" maxlength="2" required="1" id="radioNum.5.1" placeholder="Radio" />
 					</div>
 					<div class="small-2 columns" id="patroller.5.1">
-						<input type="number" maxlength="5" required="1" id="patrollerID.5.1" placeholder="ID Num" onchange="getPatroller(this.id)"/>
+						<input type="number" maxlength="5" required="1" id="patrollerID.5.1" placeholder="ID Num" />
 					</div>
 					<div class="small-2 column" id="level.5.1"></div>
 					<div class="small-1 column" id="time.5.1"></div>
-					<div class="small-2 columns">
-						<input id="mealTicket.5.1" type="checkbox"><label for="mealTicket.5.1">Meal Ticket?</label>
-					</div>
+					<span class="label left">Days:</span><div class="small-1 column" id="days.5.1"></div>
 					<div class="small-2 columns">
 						<input type="text" id="guest.5.1" placeholder="Guest" />
 					</div>
@@ -125,17 +115,15 @@
 			<fieldset>
 				<legend>Leaders:</legend>
 				<div class="row fullWidth">
-					<div class="small-2 columns">
-						<input type="number" maxlength="2" required="1" id="radioNum.6.1" placeholder="Radio Number" />
+					<div class="small-1 columns">
+						<input type="number" maxlength="2" required="1" id="radioNum.6.1" placeholder="Radio" />
 					</div>
 					<div class="small-2 columns" id="patroller.6.1">
-						<input type="number" maxlength="5" required="1" id="patrollerID.6.1" placeholder="ID Num" onchange="getPatroller(this.id)"/>
+						<input type="number" maxlength="5" required="1" id="patrollerID.6.1" placeholder="ID Num" />
 					</div>
 					<div class="small-2 column" id="level.6.1"></div>
 					<div class="small-1 column" id="time.6.1"></div>
-					<div class="small-2 columns">
-						<input id="mealTicket.6.1" type="checkbox"><label for="mealTicket.6.1">Meal Ticket?</label>
-					</div>
+					<span class="label left">Days:</span><div class="small-1 column" id="days.6.1"></div>
 					<div class="small-2 columns">
 						<input type="text" id="guest.6.1" placeholder="Guest" />
 					</div>

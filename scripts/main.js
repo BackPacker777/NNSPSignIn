@@ -7,16 +7,20 @@
 
 "use strict";
 
+/** @type {Date} */
+var date = new Date();
+
 /** @type {Array} */
 var patrollers = [];
 
 /** @type {number} */
 var t1Counter, t2Counter, t3Counter, t4Counter, t5Counter;
 
+/** @type {string} */
+var patroller;
+
 function getDate() {
-	/** @type {Date} */
-	var date = new Date(),
-		month = date.getMonth() + 1,
+	var month = date.getMonth() + 1,
 		day = date.getDate(),
 		year = date.getFullYear(),
 		weekDay = date.getDay(),
@@ -31,27 +35,34 @@ function getWeekDay(weekDay) {
 	return '<h3>' + days[weekDay] + '</h3>';
 }
 
-function getPatroller(patroller) {
-	var element = document.getElementById(patroller);
-	/** @type {Date} */
-	var date = new Date();
+function prepPatroller(teamNum) {
+	teamNum.addEventListener('change', populatePatroller);
+}
+
+function populatePatroller() {
+	patroller = event.target.id;
+	/** @type {string} */
+	var level,
+		element = document.getElementById(patroller);
+
 	/** @const */
-	var ID = 2,
-		LAST = 0,
+	var 	LAST = 0,
 		FIRST = 1,
-		LEVEL = 3;
+		ID = 2,
+		LEVEL = 3,
+		DAYS = 4;
+
 	/** @type {number} */
 	var exists = 0;
-	/** @type {string} */
-	var level;
+
 	/** @type {Array.<string>} */
 	var elementId = patroller.split('.');
-	for (var j = 0; j < patrollers.length; j++) {
-		if (element.value == patrollers[j][ID]) {
-			document.getElementById("patroller." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + patrollers[j][FIRST] + " " + patrollers[j][LAST] + "</h4>";
-			if (patrollers[j][LEVEL] == 1) {
+	for (var i = 0; i < patrollers.length; i++) {
+		if (element.value == patrollers[i][ID]) {
+			document.getElementById("patroller." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + patrollers[i][FIRST] + " " + patrollers[i][LAST] + "</h4>";
+			if (patrollers[i][LEVEL] == 1) {
 				level = "Basic";
-			} else if (patrollers[j][LEVEL] == 2) {
+			} else if (patrollers[i][LEVEL] == 2) {
 				level = "Senior";
 			} else {
 				level = "Certified";
@@ -62,19 +73,26 @@ function getPatroller(patroller) {
 				minutes = "0" + minutes;
 			}
 			document.getElementById("time." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + date.getHours() + ":" + minutes + "</h4>";
-			patrollers.splice(patrollers[j]--, 1); //remove array element
+			patrollers[i][DAYS]++;
+			document.getElementById("days." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + patrollers[i][DAYS] + "</h4>";
+			patrollers.splice(patrollers[i]--, 1); //remove array element
 			elementId[2]++;
+			patroller = "patrollerID." + elementId[1] + "." + elementId[2];
+
 			/** @type {boolean} */
 			var addTeam = setCounter(elementId[1]);
+
 			if (addTeam === true) {
-				addPatroller(elementId[1], elementId[2]);
+				addPatrollerRow(elementId[1], elementId[2]);
+				prepPatroller(document.getElementById(patroller));
 			}
+
 			exists = 1;
 			break;
 		}
 	}
 	if (exists == 0) {
-		alert("PLEASE TRY AGAIN!");//Do something here if number already in use.
+		alert("PLEASE TRY AGAIN!"); //Do something here if number already in use.
 		element.value = '';
 	}
 }
@@ -135,29 +153,27 @@ function setCounter(teamNum) {
 	}
 }
 
-function addPatroller(teamNum, patroller) {
+function addPatrollerRow(teamNum, patrollerNum) {
 	var team = ('team' + teamNum);
 	var row = document.createElement("div");
 	row.setAttribute('class', 'row fullWidth');
-	var rowContents =   '<div class="small-2 columns">' +
-						'<input type="number" maxlength="2" required="1" id="radioNum.' + teamNum + '.' + patroller + '" placeholder="Radio Number" />' +
+	var rowContents =   '<div class="small-1 columns">' +
+						'<input type="number" maxlength="2" required="1" id="radioNum.' + teamNum + '.' + patrollerNum + '" placeholder="Radio Number" />' +
 					'</div>' +
-					'<div class="small-2 columns" id="patroller.' + teamNum + '.' + patroller + '" >' +
-						'<input type="number" maxlength="5" id="patrollerID.' + teamNum + '.' + patroller + '" placeholder="ID Num" onchange="getPatroller(this.id)" />' +
+					'<div class="small-2 columns" id="patroller.' + teamNum + '.' + patrollerNum + '" >' +
+						'<input type="number" maxlength="5" id="patrollerID.' + teamNum + '.' + patrollerNum + '" placeholder="ID Num" />' +
 					'</div>' +
-					'<div class="small-2 column" id="level.' + teamNum + '.' + patroller + '"></div>' +
-					'<div class="small-1 column" id="time.' + teamNum + '.' + patroller + '"></div>' +
+					'<div class="small-1 column" id="level.' + teamNum + '.' + patrollerNum + '"></div>' +
+					'<div class="small-1 column" id="time.' + teamNum + '.' + patrollerNum + '"></div>' +
+					'<span class="label left">Days:</span><div class="small-1 column" id="days.' + teamNum + '.' + patrollerNum + '"></div>' +
 					'<div class="small-2 columns">' +
-						'<input id="mealTicket.' + teamNum + '.' + patroller + '" type="checkbox"><label for="mealTicket.' + teamNum + '.' + patroller + '">Meal Ticket?</label>' +
-					'</div>' +
-					'<div class="small-2 columns">' +
-						'<input type="text" id="guest.' + teamNum + '.' + patroller + '" placeholder="Guest" />' +
+						'<input type="text" id="guest.' + teamNum + '.' + patrollerNum + '" placeholder="Guest" />' +
 					'</div>';
 	row.innerHTML = rowContents;
 	document.getElementById(team).appendChild(row);
 }
 
-function setPatrollers() {
+function setPatrollersArray() {
 	/** @type {Array.<string>} */
 	var lines = [];
 	$.ajax({
@@ -175,6 +191,13 @@ function setPatrollers() {
 }
 
 window.onload = function() {
+	/** @constant */
+	var MAX_TEAM = 5;
 	document.getElementById("date").innerHTML = getDate();
-	setPatrollers();
+	setPatrollersArray();
+	prepPatroller(document.getElementById("patrollerID.1.1"));
+	prepPatroller(document.getElementById("patrollerID.2.1"));
+	prepPatroller(document.getElementById("patrollerID.3.1"));
+	prepPatroller(document.getElementById("patrollerID.4.1"));
+	prepPatroller(document.getElementById("patrollerID.5.1"));
 };
