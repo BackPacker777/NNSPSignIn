@@ -1,8 +1,8 @@
 /**
- *   AUTHOR: HB
- *   VERSION: 1.0
+ *   AUTHOR: hbates@northmen.org
+ *   VERSION: 1.5
  *   CREATED: 02.12.2015
- *   ASSIGNMENT: Project 3 JS Code
+ *   PROJECT: NNSP Sign IN
  */
 
 "use strict";
@@ -43,6 +43,32 @@ function setDayNight() {
 	} else {
 		document.getElementById("dayNight").innerHTML = "<h3>Day</h3>";
 	}
+}
+
+function displayAM(shiftNum) {
+    console.log(shiftNum);
+    /** @type {number} */
+    var hour = date.getHours();
+    if (hour < 11 && hour > 1) {
+        /** @type {HTMLElement} */
+        var div = document.getElementById(shiftNum),
+            amShiftLabel = document.createElement("span"),
+            amShiftDiv = document.createElement("div"),
+            amShiftFoundationLabel = document.createElement("label"),
+            amShiftSwitch = document.createElement("input");
+
+        console.log(div);
+
+        amShiftLabel.setAttribute("class", "label left");
+        amShiftLabel.textContent = "AM half day?";
+        amShiftDiv.setAttribute("class", "switch");
+        amShiftFoundationLabel.setAttribute("for", "amShiftSwitch");
+        amShiftSwitch.setAttribute("type", "checkbox");
+        div.appendChild(amShiftLabel);
+        div.appendChild(amShiftDiv);
+        div.appendChild(amShiftSwitch);
+        div.appendChild(amShiftFoundationLabel);
+    }
 }
 
 function prepPatroller(teamNum) {
@@ -208,5 +234,6 @@ window.onload = function() {
 	setDayNight();
 	for (var i = 1; i <= MAX_TEAM; i++) {
 		prepPatroller(document.getElementById("patrollerID." + i + ".1"));
+        displayAM("shift." + i + ".1");
 	}
 };
