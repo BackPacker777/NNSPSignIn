@@ -65,7 +65,19 @@ function displayAM(shiftNum) {
         div.appendChild(amShiftDiv);
         div.appendChild(amShiftSwitch);
         div.appendChild(amShiftFoundationLabel);
+        handleAM(document.getElementById(shiftNum));
     }
+}
+
+function handleAM(shiftNum) {
+    shiftNum.addEventListener('change', function() {
+        //decrement days by .5 if checked, increment by .5 if checked
+        if (this.checked) {
+
+        } else {
+
+        }
+    });
 }
 
 function prepPatroller(teamNum) {
