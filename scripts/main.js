@@ -52,32 +52,26 @@ function displayAM(teamNum, patrollerNum) {
 	/** @type {string} */
 	var shiftNum = "shift." + teamNum + "." + patrollerNum;
 
-	//if (hour < 11 && hour > 1) {
-	if (hour > 1) {
+	if (hour < 11 && hour > 1) {
 		/** @type {HTMLElement} */
 		var div = document.getElementById(shiftNum),
-			amShiftLabel = document.createElement("span"),
-			amShiftDiv = document.createElement("div"),
-			amShiftFoundationLabel = document.createElement("label"),
-			amShiftSwitch = document.createElement("input");
+			amShiftLabel = document.createElement("label"),
+			amShiftCheckbox = document.createElement("input");
 
-		amShiftLabel.setAttribute("class", "label left");//https://stackoverflow.com/questions/3919291/when-to-use-setattribute-vs-attribute-in-javascript
+		amShiftLabel.setAttribute("class", "label left inline radius"); //https://stackoverflow.com/questions/3919291/when-to-use-setattribute-vs-attribute-in-javascript
+		amShiftLabel.for = "amShiftCheckbox";
 		amShiftLabel.textContent = "AM only?";
-		amShiftDiv.setAttribute("class", "switch");
-		amShiftFoundationLabel.for = "amShiftSwitch";
-		amShiftSwitch.type = "checkbox";
-		amShiftSwitch.id = "amShiftSwitch." + teamNum + "." + patrollerNum;
+		amShiftCheckbox.type = "checkbox";
+		amShiftCheckbox.id = "amShiftCheckbox." + teamNum + "." + patrollerNum;
 		div.appendChild(amShiftLabel);
-		div.appendChild(amShiftDiv);
-		div.appendChild(amShiftSwitch);
-		div.appendChild(amShiftFoundationLabel);
+		div.appendChild(amShiftCheckbox);
 		handleAM(teamNum, patrollerNum);
 	}
 }
 
 function handleAM(teamNum, patrollerNum) {
 	/** @type {HTMLElement} */
-	var shiftNum = document.getElementById("amShiftSwitch." + teamNum + "." + patrollerNum);
+	var shiftNum = document.getElementById("amShiftCheckbox." + teamNum + "." + patrollerNum);
 
 	/** @constant */
 	var HALF_SHIFT = 0.5;
@@ -125,8 +119,6 @@ function populatePatroller() {
 	var elementId = patroller.split('.');
 	for (var i = 0; i < patrollers.length; i++) {
 		if (element.value == patrollers[i][ID]) {
-			days = patrollers[i][DAYS];
-
 			document.getElementById("patroller." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + patrollers[i][FIRST] + " " + patrollers[i][LAST] + "</h4>";
 			if (patrollers[i][RATING] == 1) {
 				rating = "Basic";
@@ -141,9 +133,11 @@ function populatePatroller() {
 				minutes = "0" + minutes;
 			}
 			document.getElementById("time." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + date.getHours() + ":" + minutes + "</h4>";
-			patrollers[i][DAYS]++;
 
-			document.getElementById("days." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + patrollers[i][DAYS] + "</h4>";
+			days = patrollers[i][DAYS];
+			days++;
+
+			document.getElementById("days." + elementId[1] + "." + elementId[2]).innerHTML = "<h4>" + days.toFixed(1) + "</h4>";
 			patrollers.splice(patrollers[i]--, 1); //remove array element
 			displayAM(elementId[1], elementId[2]);
 
@@ -260,7 +254,7 @@ function addPatrollerRow(teamNum, patrollerNum) {
 	patrollerTime.id = "time." + currentPatroller;
 	shiftDiv.setAttribute("class", "small-1 column");
 	shiftDiv.id = "shift." + currentPatroller;
-	daysDivLabel.setAttribute("class", "label left");
+	daysDivLabel.setAttribute("class", "label left inline radius");
 	daysDivLabel.textContent = "Days: ";
 	daysDiv.setAttribute("class", "small-1 column");
 	daysDiv.id = "days." + currentPatroller;
@@ -277,8 +271,8 @@ function addPatrollerRow(teamNum, patrollerNum) {
 	document.getElementById(patrollerDiv.id).appendChild(inputPatrollerID);
 	document.getElementById(row.id).appendChild(patrollerRating);
 	document.getElementById(row.id).appendChild(patrollerTime);
-	document.getElementById(row.id).appendChild(daysDivLabel);
 	document.getElementById(row.id).appendChild(shiftDiv);
+	document.getElementById(row.id).appendChild(daysDivLabel);
 	document.getElementById(row.id).appendChild(daysDiv);
 	document.getElementById(row.id).appendChild(guestDiv);
 	document.getElementById(guestDiv.id).appendChild(inputGuest);
@@ -301,7 +295,7 @@ function setPatrollersArray() {
 	}
 }
 
-window.onload = function () {
+window.onload = function() {
 	/** @constant */
 	var MAX_TEAM = 5;
 	document.getElementById("date").innerHTML = getDate();
@@ -309,6 +303,5 @@ window.onload = function () {
 	setDayNight();
 	for (var i = 1; i <= MAX_TEAM; i++) {
 		prepPatroller(document.getElementById("patrollerID." + i + ".1"));
-		//displayAM("shift." + i + ".1");
 	}
 };

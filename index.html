@@ -4,8 +4,7 @@
 	VERSION: 1.5
 	CREATED: 2.25.2015
 	PURPOSE: NNSP Daily sign-in form
-	TODO: 1/2 day shifts manual & calculation; Write data back to .csv; Handle team 6;
-	TODO: Print page & meal tickets
+	TODO: Write data back to .csv; Handle team 6; Print page & meal tickets
 -->
 <html lang="en">
 	<head>
@@ -24,7 +23,7 @@
 			<div class="small-2 columns left" id="weekDay"></div>
 			<div class="small-2 columns left" id="dayNight"></div>
 		</div>
-		<form>
+		<form id="rosterForm">
 			<fieldset id="team1">
 				<legend>Team 1:</legend>
 				<div class="row fullWidth" id="row.1.1">
@@ -36,8 +35,8 @@
 					</div>
 					<div class="small-1 column" id="rating.1.1"></div>
 					<div class="small-1 column" id="time.1.1"></div>
-                    <div class="small-1 column" id="shift.1.1"></div>
-					<span class="label left">Days:</span><div class="small-2 column" id="days.1.1"></div>
+                         <div class="small-1 column" id="shift.1.1"></div>
+					<label for="days.1.1" class="label left inline radius">Days:</label><div class="small-2 column" id="days.1.1"></div>
 					<div class="small-2 columns" id="guestDiv.1.1">
 						<input type="text" id="guest.1.1" placeholder="Guest" />
 					</div>
@@ -54,8 +53,8 @@
 					</div>
 					<div class="small-1 column" id="rating.2.1"></div>
 					<div class="small-1 column" id="time.2.1"></div>
-                    <div class="small-1 column" id="shift.2.1"></div>
-					<span class="label left">Days:</span><div class="small-1 column" id="days.2.1"></div>
+                         <div class="small-1 column" id="shift.2.1"></div>
+					<label for="days.2.1" class="label left inline radius">Days:</label><div class="small-1 column" id="days.2.1"></div>
 					<div class="small-2 columns" id="guestDiv.2.1">
 						<input type="text" id="guest.2.1" placeholder="Guest" />
 					</div>
@@ -72,8 +71,8 @@
 					</div>
 					<div class="small-1 column" id="rating.3.1"></div>
 					<div class="small-1 column" id="time.3.1"></div>
-                    <div class="small-1 column" id="shift.3.1"></div>
-					<span class="label left">Days:</span><div class="small-1 column" id="days.3.1"></div>
+                         <div class="small-1 column" id="shift.3.1"></div>
+					<label for="days.3.1" class="label left inline radius">Days:</label><div class="small-1 column" id="days.3.1"></div>
 					<div class="small-2 columns" id="guestDiv.3.1">
 						<input type="text" id="guest.3.1" placeholder="Guest" />
 					</div>
@@ -90,8 +89,8 @@
 					</div>
 					<div class="small-1 column" id="rating.4.1"></div>
 					<div class="small-1 column" id="time.4.1"></div>
-                    <div class="small-1 column" id="shift.4.1"></div>
-					<span class="label left">Days:</span><div class="small-1 column" id="days.4.1"></div>
+                         <div class="small-1 column" id="shift.4.1"></div>
+					<label for="days.4.1" class="label left inline radius">Days:</label><div class="small-1 column" id="days.4.1"></div>
 					<div class="small-2 columns" id="guestDiv.4.1">
 						<input type="text" id="guest.4.1" placeholder="Guest" />
 					</div>
@@ -108,8 +107,8 @@
 					</div>
 					<div class="small-1 column" id="rating.5.1"></div>
 					<div class="small-1 column" id="time.5.1"></div>
-                    <div class="small-1 column" id="shift.5.1"></div>
-					<span class="label left">Days:</span><div class="small-1 column" id="days.5.1"></div>
+                         <div class="small-1 column" id="shift.5.1"></div>
+					<label for="days.5.1" class="label left inline radius">Days:</label><div class="small-1 column" id="days.5.1"></div>
 					<div class="small-2 columns" id="guestDiv.5.1">
 						<input type="text" id="guest.5.1" placeholder="Guest" />
 					</div>
@@ -126,13 +125,16 @@
 					</div>
 					<div class="small-1 column" id="rating.6.1"></div>
 					<div class="small-1 column" id="time.6.1"></div>
-                    <div class="small-1 column" id="shift.6.1"></div>
-					<span class="label left">Days:</span><div class="small-1 column" id="days.6.1"></div>
+                         <div class="small-1 column" id="shift.6.1"></div>
+					<label for="days.6.1" class="label left inline radius">Days:</label><div class="small-1 column" id="days.6.1"></div>
 					<div class="small-2 columns" id="guestDiv.6.1">
 						<input type="text" id="guest.6.1" placeholder="Guest" />
 					</div>
 				</div>
 			</fieldset>
+			<div class="large-6 large-centered columns">
+				<input type="submit" id="formSubmit" class="button round" value="PRINT FORM" />
+			</div>
 		</form>
 	</div>
 
